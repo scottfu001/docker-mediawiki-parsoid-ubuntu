@@ -91,7 +91,7 @@ RUN sed -i "s/;catch_workers_output = .*/catch_workers_output = yes/" /etc/php/7
 
 # intall Parsoid
 RUN apt-get install -y dirmngr
-RUN	apt-key advanced --keyserver keys.gnupg.net --recv-keys 90E9F83F22250DD7
+RUN	apt-key advanced --keyserver pgp.mit.edu --recv-keys 90E9F83F22250DD7
 RUN	apt-add-repository "deb https://releases.wikimedia.org/debian jessie-mediawiki main"
 RUN	apt-get install -y apt-transport-https
 RUN	apt-get update
