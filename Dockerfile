@@ -89,6 +89,9 @@ RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.2/fpm/php-fpm
 RUN sed -i "s/listen = .*/listen = 9000/" /etc/php/7.2/fpm/pool.d/www.conf
 RUN sed -i "s/;catch_workers_output = .*/catch_workers_output = yes/" /etc/php/7.2/fpm/pool.d/www.conf
 
+# install composer	
+RUN curl https://getcomposer.org/installer > composer-setup.php && php composer-setup.php && mv composer.phar /usr/local/bin/composer && rm composer-setup.php
+
 # intall Parsoid
 RUN apt-get install -y dirmngr
 RUN	apt-key advanced --keyserver pgp.mit.edu --recv-keys 90E9F83F22250DD7
@@ -103,7 +106,7 @@ RUN echo "num_workers: 4" >> /etc/mediawiki/parsoid/config.yaml
 
 # install supervisor
 RUN apt-get install -y supervisor
-	
+
 # clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && apt-get autoremove
 
