@@ -94,7 +94,7 @@ RUN apt-get install -y dirmngr && \
 	
 #basic config for the parsoid
 RUN sed -i "s/uri:.*/uri: \'https:\/\/localhost\/api.php\'/" /etc/mediawiki/parsoid/config.yaml
-RUN sed -i "s/#strictSSL:.*/strictSSL: false" /etc/mediawiki/parsoid/config.yaml
+RUN sed -i "s/#strictSSL:.*/strictSSL: false/" /etc/mediawiki/parsoid/config.yaml
 RUN echo "num_workers: 4" >> /etc/mediawiki/parsoid/config.yaml
 
 # install supervisor
