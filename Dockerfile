@@ -8,7 +8,7 @@ ENV TZ=UTC
 RUN apt-get update && apt-get install -y --no-install-recommends dialog apt-utils
 
 # build required libs
-RUN apt-get install -y locales curl software-properties-common && locale-gen en_US.UTF-8 
+RUN apt-get install -y locales curl vim git software-properties-common && locale-gen en_US.UTF-8 
 
 # add repositories
 RUN add-apt-repository -y ppa:nginx/stable && \
@@ -89,10 +89,12 @@ RUN apt-get install -y dirmngr && \
 	apt-key advanced --keyserver keys.gnupg.net --recv-keys 90E9F83F22250DD7 && \
 	apt-add-repository "deb https://releases.wikimedia.org/debian jessie-mediawiki main" && \
 	apt-get install -y apt-transport-https && \
+	apt-get update && \
 	apt-get install -y parsoid
 	
 #basic config for the parsoid
-RUN sed -i "s/uri:.*/uri: \'http:\/\/localhost\/api.php\'/" /etc/mediawiki/parsoid/config.yaml
+RUN sed -i "s/uri:.*/uri: \'https:\/\/localhost\/api.php\'/" /etc/mediawiki/parsoid/config.yaml
+RUN sed -i "s/#strictSSL:.*/strictSSL: false" /etc/mediawiki/parsoid/config.yaml
 RUN echo "num_workers: 4" >> /etc/mediawiki/parsoid/config.yaml
 
 # install supervisor
